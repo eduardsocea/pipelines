@@ -63,6 +63,7 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'webAppTwo'
 - stage: Test
+  condition: eq(variables['Build.Reason'], 'Manual')
   displayName: Deploy to Test
   dependsOn: Build
   jobs:
@@ -78,6 +79,7 @@ stages:
           - script: echo Deployment to TEST
             displayName: Deployment    
 - stage: Prod
+  condition: eq(variables['Build.Reason'], 'Manual')
   displayName: Deploy to PROD
   dependsOn: Test
   jobs:
