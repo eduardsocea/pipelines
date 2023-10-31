@@ -23,6 +23,7 @@ jobs:
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
 
   - task: DotNetCoreCLI@2
+    displayName: Publish Web App One
     inputs:
       command: 'publish'
       publishWebProjects: false
@@ -39,11 +40,13 @@ jobs:
     displayName: 'Starting build'
 
   - task: DotNetCoreCLI@2
+    displayName: BUILD WEb App 2
     inputs:
       command: 'build'
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
 
   - task: DotNetCoreCLI@2
+    displayName: Publish Web App One
     inputs:
       command: 'publish'
       publishWebProjects: false
@@ -62,9 +65,15 @@ jobs:
   - script: echo Publish artifacts
     displayName: Start publish artifacts
   - task: PublishBuildArtifacts@1
-    displayName: Publish Build Artifacts 
+    displayName: Publish Build Web API One 
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiOne'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Build Web API Two 
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo'
       ArtifactName: 'drop'
       publishLocation: 'Container'
   - script: echo Finished Publish artifacts
