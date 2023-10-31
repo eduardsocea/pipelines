@@ -66,10 +66,16 @@ stages:
   displayName: Deploy to Test
   dependsOn: Build
   jobs:
-  - job: Deployment
-    steps:
-    - script: echo Deployment to TEST
-      displayName: Deployment    
+  - deployment: test
+    displayName: Deploy to Test
+    workspace:
+      clean: all
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Deployment to TEST
+            displayName: Deployment    
 - stage: Prod
   displayName: Deploy to PROD
   dependsOn: Test
