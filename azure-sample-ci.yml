@@ -10,23 +10,23 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-- job: Dotnet-CI
+- job: DotnetCI
   displayName: Dotnet Build
   steps:
   - script: echo This execute a dotnet build command
     displayName: 'Dotnet build step'
 
-- job: JS-CI
+- job: JsCI
   displayName: JavaScript Build
   steps:
   - script: echo This execute a dotnet js command
     displayName: 'JavaScript build Step'
 
-- job: Publish-Artifacts
+- job: PublishArtifacts
   displayName: Publish Artifacts
   dependsOn:
-    - Dotnet-CI
-    - JS-CI 
+    - DotnetCI
+    - JsCI
   steps:
   - script: echo Publish artifacts
     displayName: Initialize publish artifacts
