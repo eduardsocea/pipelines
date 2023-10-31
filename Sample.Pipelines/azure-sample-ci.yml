@@ -67,13 +67,13 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish Build Web API One 
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiOne'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiOne/'
       ArtifactName: 'drop'
       publishLocation: 'Container'
   - task: PublishBuildArtifacts@1
     displayName: Publish Build Web API Two 
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
       ArtifactName: 'drop'
       publishLocation: 'Container'
   - script: echo Finished Publish artifacts
