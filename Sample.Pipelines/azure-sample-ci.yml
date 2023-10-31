@@ -20,47 +20,47 @@ jobs:
     displayName: BUILD WEb App 1
     inputs:
       command: 'build'
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      projects: './Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
 
   - task: DotNetCoreCLI@2
     displayName: Publish Web App One
     inputs:
       command: 'publish'
       publishWebProjects: false
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      projects: './Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
       arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
 
   - script: echo Finished build for Web App One
     displayName: 'Finished build'
 
-- job: WebApp2_CI
-  displayName: Web App 2 - CI
-  steps:
-  - script: echo Starting build for Web App Two
-    displayName: 'Starting build'
+# - job: WebApp2_CI
+#   displayName: Web App 2 - CI
+#   steps:
+#   - script: echo Starting build for Web App Two
+#     displayName: 'Starting build'
 
-  - task: DotNetCoreCLI@2
-    displayName: BUILD WEb App 2
-    inputs:
-      command: 'build'
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
+#   - task: DotNetCoreCLI@2
+#     displayName: BUILD WEb App 2
+#     inputs:
+#       command: 'build'
+#       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
 
-  - task: DotNetCoreCLI@2
-    displayName: Publish Web App One
-    inputs:
-      command: 'publish'
-      publishWebProjects: false
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
+#   - task: DotNetCoreCLI@2
+#     displayName: Publish Web App One
+#     inputs:
+#       command: 'publish'
+#       publishWebProjects: false
+#       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
+#       arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
 
-  - script: echo Finished build for Web App Two
-    displayName: 'Finished build'
+#   - script: echo Finished build for Web App Two
+#     displayName: 'Finished build'
 
 - job: PublishArtifacts
   displayName: Publish Artifacts
   dependsOn:
     - WebApp1_CI
-    - WebApp2_CI
+    # - WebApp2_CI
   steps:
   - script: echo Publish artifacts
     displayName: Start publish artifacts
