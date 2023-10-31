@@ -20,14 +20,14 @@ jobs:
     displayName: BUILD WEb App 1
     inputs:
       command: 'build'
-      projects: './Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      projects: './Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
 
   - task: DotNetCoreCLI@2
     displayName: Publish Web App One
     inputs:
       command: 'publish'
       publishWebProjects: false
-      projects: './Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      projects: './Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
       arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
 
   - script: echo Finished build for Web App One
