@@ -22,6 +22,13 @@ jobs:
       command: 'build'
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
+
   - script: echo Finished build for Web App One
     displayName: 'Finished build'
 
@@ -35,6 +42,13 @@ jobs:
     inputs:
       command: 'build'
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
   - script: echo Finished build for Web App Two
     displayName: 'Finished build'
