@@ -27,7 +27,7 @@ jobs:
       command: 'publish'
       publishWebProjects: false
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp-one"'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
   - script: echo Finished build for Web App One
     displayName: 'Finished build'
@@ -48,7 +48,7 @@ jobs:
       command: 'publish'
       publishWebProjects: false
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp-two"'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
   - script: echo Finished build for Web App Two
     displayName: 'Finished build'
