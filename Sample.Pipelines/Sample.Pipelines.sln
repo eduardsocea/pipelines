@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Pipelines.WebApiOne", "Sample.Pipelines.WebApiOne\Sample.Pipelines.WebApiOne.csproj", "{BB371125-5619-4B7A-B407-FF2A52E141F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Pipelines.WebApiTwo", "Sample.Pipelines.WebApiTwo\Sample.Pipelines.WebApiTwo.csproj", "{CD2C791C-7183-49BF-9AFB-98E2EFD34CD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB371125-5619-4B7A-B407-FF2A52E141F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB371125-5619-4B7A-B407-FF2A52E141F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB371125-5619-4B7A-B407-FF2A52E141F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB371125-5619-4B7A-B407-FF2A52E141F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2C791C-7183-49BF-9AFB-98E2EFD34CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2C791C-7183-49BF-9AFB-98E2EFD34CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2C791C-7183-49BF-9AFB-98E2EFD34CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2C791C-7183-49BF-9AFB-98E2EFD34CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
