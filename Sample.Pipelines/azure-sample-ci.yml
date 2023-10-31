@@ -68,6 +68,7 @@ stages:
   jobs:
   - deployment: test
     displayName: Deploy to Test
+    environment: sample
     workspace:
       clean: all
     strategy:
