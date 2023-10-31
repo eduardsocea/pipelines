@@ -28,7 +28,7 @@ jobs:
       command: 'publish'
       publishWebProjects: false
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
 
   - script: echo Finished build for Web App One
     displayName: 'Finished build'
@@ -51,7 +51,7 @@ jobs:
       command: 'publish'
       publishWebProjects: false
       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
 
   - script: echo Finished build for Web App Two
     displayName: 'Finished build'
@@ -67,14 +67,14 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish Build Web API One 
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiOne/'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Web API Two 
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
+      ArtifactName: 'webapp'
+      # publishLocation: 'Container'
+  # - task: PublishBuildArtifacts@1
+  #   displayName: Publish Build Web API Two 
+  #   inputs:
+  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
+  #     ArtifactName: 'drop'
+  #     publishLocation: 'Container'
   - script: echo Finished Publish artifacts
     displayName: Finished publish artifacts
