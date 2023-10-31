@@ -38,48 +38,25 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'webAppOne'
 
-# - job: WebApp2_CI
-#   displayName: Web App 2 - CI
-#   steps:
-#   - script: echo Starting build for Web App Two
-#     displayName: 'Starting build'
+- job: WebApp2_CI
+  displayName: Web App 2 - CI
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: BUILD Web App 2
+    inputs:
+      command: 'build'
+      projects: '$(WebAppTwoProject)'
 
-#   - task: DotNetCoreCLI@2
-#     displayName: BUILD WEb App 2
-#     inputs:
-#       command: 'build'
-#       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: Publish Web App Two
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '$(WebAppTwoProject)'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
-#   - task: DotNetCoreCLI@2
-#     displayName: Publish Web App One
-#     inputs:
-#       command: 'publish'
-#       publishWebProjects: false
-#       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo/Sample.Pipelines.WebApiTwo.csproj'
-#       arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
-
-#   - script: echo Finished build for Web App Two
-#     displayName: 'Finished build'
-
-# - job: PublishArtifacts
-#   displayName: Publish Artifacts
-#   dependsOn:
-#     - WebApp1_CI
-#     # - WebApp2_CI
-#   steps:
-#   - script: echo Publish artifacts
-#     displayName: Start publish artifacts
-#   - task: PublishBuildArtifacts@1
-#     displayName: Publish Build Web API One 
-#     inputs:
-#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
-#       ArtifactName: 'webapp'
-#       # publishLocation: 'Container'
-#   # - task: PublishBuildArtifacts@1
-#   #   displayName: Publish Build Web API Two 
-#   #   inputs:
-#   #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
-#   #     ArtifactName: 'drop'
-#   #     publishLocation: 'Container'
-#   - script: echo Finished Publish artifacts
-#     displayName: Finished publish artifacts
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Build Web API Two 
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'webAppTwo'
