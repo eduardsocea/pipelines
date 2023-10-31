@@ -9,29 +9,34 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  WebAppOneProject: '**/Sample.Pipelines.WebApiOne.csproj'
+  WebAppTwoProject: '**/Sample.Pipelines.WebApiTwo.csproj'
+
+
 jobs:
 - job: WebApp1_CI
   displayName: Web App 1 - CI
   steps:
-  - script: echo Starting build for Web App One
-    displayName: 'Starting build'
-
   - task: DotNetCoreCLI@2
-    displayName: BUILD WEb App 1
+    displayName: BUILD Web App 1
     inputs:
       command: 'build'
-      projects: './Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
+      projects: '$(WebAppOneProject)'
 
   - task: DotNetCoreCLI@2
     displayName: Publish Web App One
     inputs:
       command: 'publish'
       publishWebProjects: false
-      projects: './Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)/webapp"'
+      projects: '$(WebAppOneProject)'
+      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
-  - script: echo Finished build for Web App One
-    displayName: 'Finished build'
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Build Web API One 
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'webAppOne'
 
 # - job: WebApp2_CI
 #   displayName: Web App 2 - CI
@@ -56,25 +61,25 @@ jobs:
 #   - script: echo Finished build for Web App Two
 #     displayName: 'Finished build'
 
-- job: PublishArtifacts
-  displayName: Publish Artifacts
-  dependsOn:
-    - WebApp1_CI
-    # - WebApp2_CI
-  steps:
-  - script: echo Publish artifacts
-    displayName: Start publish artifacts
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Web API One 
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
-      ArtifactName: 'webapp'
-      # publishLocation: 'Container'
-  # - task: PublishBuildArtifacts@1
-  #   displayName: Publish Build Web API Two 
-  #   inputs:
-  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
-  #     ArtifactName: 'drop'
-  #     publishLocation: 'Container'
-  - script: echo Finished Publish artifacts
-    displayName: Finished publish artifacts
+# - job: PublishArtifacts
+#   displayName: Publish Artifacts
+#   dependsOn:
+#     - WebApp1_CI
+#     # - WebApp2_CI
+#   steps:
+#   - script: echo Publish artifacts
+#     displayName: Start publish artifacts
+#   - task: PublishBuildArtifacts@1
+#     displayName: Publish Build Web API One 
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
+#       ArtifactName: 'webapp'
+#       # publishLocation: 'Container'
+#   # - task: PublishBuildArtifacts@1
+#   #   displayName: Publish Build Web API Two 
+#   #   inputs:
+#   #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Sample.Pipelines.WebApiTwo/'
+#   #     ArtifactName: 'drop'
+#   #     publishLocation: 'Container'
+#   - script: echo Finished Publish artifacts
+#     displayName: Finished publish artifacts
