@@ -1,0 +1,38 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: Dotnet-CI
+  displayName: Dotnet Build
+  steps:
+  - script: echo This execute a dotnet build command
+    displayName: 'Dotnet build step'
+
+- job: JS-CI
+  displayName: JavaScript Build
+  steps:
+  - script: echo This execute a dotnet js command
+    displayName: 'JavaScript build Step'
+
+- job: Publish-Artifacts
+  displayName: Publish Artifacts
+  dependsOn:
+    - Dotnet-CI
+    - JS-CI 
+  steps:
+  - script: echo Publish artifacts
+    displayName: Initialize publish artifacts
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Build Artifacts 
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
