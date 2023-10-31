@@ -17,26 +17,27 @@ jobs:
     displayName: 'Starting build'
 
   - task: DotNetCoreCLI@2
+    displayName: BUILD WEb App 1
     inputs:
       command: 'build'
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne.csproj'
+      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne/Sample.Pipelines.WebApiOne.csproj'
 
   - script: echo Finished build for Web App One
     displayName: 'Finished build'
 
-- job: WebApp2_CI
-  displayName: Web App 2 - CI
-  steps:
-  - script: echo Starting build for Web App Two
-    displayName: 'Starting build'
+# - job: WebApp2_CI
+#   displayName: Web App 2 - CI
+#   steps:
+#   - script: echo Starting build for Web App Two
+#     displayName: 'Starting build'
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'build'
-      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo.csproj'
+#   - task: DotNetCoreCLI@2
+#     inputs:
+#       command: 'build'
+#       projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo.csproj'
 
-  - script: echo Finished build for Web App Two
-    displayName: 'Finished build'
+#   - script: echo Finished build for Web App Two
+#     displayName: 'Finished build'
 
 # - job: PublishArtifacts
 #   displayName: Publish Artifacts
