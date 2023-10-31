@@ -13,50 +13,68 @@ variables:
   WebAppOneProject: '**/Sample.Pipelines.WebApiOne.csproj'
   WebAppTwoProject: '**/Sample.Pipelines.WebApiTwo.csproj'
 
+stages:
+- stage: Build
+  displayName: build Stage
+  jobs:
+  - job: WebApp1_CI
+    displayName: Web App 1 - CI
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: BUILD Web App 1
+      inputs:
+        command: 'build'
+        projects: '$(WebAppOneProject)'
 
-jobs:
-- job: WebApp1_CI
-  displayName: Web App 1 - CI
-  steps:
-  - task: DotNetCoreCLI@2
-    displayName: BUILD Web App 1
-    inputs:
-      command: 'build'
-      projects: '$(WebAppOneProject)'
+    - task: DotNetCoreCLI@2
+      displayName: Publish Web App One
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '$(WebAppOneProject)'
+        arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
-  - task: DotNetCoreCLI@2
-    displayName: Publish Web App One
-    inputs:
-      command: 'publish'
-      publishWebProjects: false
-      projects: '$(WebAppOneProject)'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Build Web API One 
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'webAppOne'
 
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Web API One 
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'webAppOne'
+  - job: WebApp2_CI
+    displayName: Web App 2 - CI
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: BUILD Web App 2
+      inputs:
+        command: 'build'
+        projects: '$(WebAppTwoProject)'
 
-- job: WebApp2_CI
-  displayName: Web App 2 - CI
-  steps:
-  - task: DotNetCoreCLI@2
-    displayName: BUILD Web App 2
-    inputs:
-      command: 'build'
-      projects: '$(WebAppTwoProject)'
+    - task: DotNetCoreCLI@2
+      displayName: Publish Web App Two
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '$(WebAppTwoProject)'
+        arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
 
-  - task: DotNetCoreCLI@2
-    displayName: Publish Web App Two
-    inputs:
-      command: 'publish'
-      publishWebProjects: false
-      projects: '$(WebAppTwoProject)'
-      arguments: '--no-build -o "$(Build.ArtifactStagingDirectory)"'
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Web API Two 
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'webAppTwo'
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Build Web API Two 
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'webAppTwo'
+- stage: Test
+  displayName: Deploy to Test
+  dependsOn: Build
+  jobs:
+  - job: Deployment
+    steps:
+    - script: echo Deployment to TEST
+      displayName: Deployment    
+- stage: Prod
+  displayName: Deploy to PROD
+  dependsOn: Test
+  jobs:
+  - job: Deployment
+    steps:
+    - script: echo Deployment to PROD
+      displayName: Deployment   
