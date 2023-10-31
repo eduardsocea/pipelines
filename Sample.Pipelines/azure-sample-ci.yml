@@ -10,29 +10,45 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-- job: DotnetCI
-  displayName: Dotnet Build
+- job: WebApp1_CI
+  displayName: Web App 1 - CI
   steps:
-  - script: echo This execute a dotnet build command
-    displayName: 'Dotnet build step'
+  - script: echo Starting build for Web App One
+    displayName: 'Starting build'
 
-- job: JsCI
-  displayName: JavaScript Build
-  steps:
-  - script: echo This execute a dotnet js command
-    displayName: 'JavaScript build Step'
-
-- job: PublishArtifacts
-  displayName: Publish Artifacts
-  dependsOn:
-    - DotnetCI
-    - JsCI
-  steps:
-  - script: echo Publish artifacts
-    displayName: Initialize publish artifacts
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Artifacts 
+  - task: DotNetCoreCLI@2
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
+      command: 'build'
+      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiOne.csproj'
+
+  - script: echo Finished build for Web App One
+    displayName: 'Finished build'
+
+- job: WebApp2_CI
+  displayName: Web App 2 - CI
+  steps:
+  - script: echo Starting build for Web App Two
+    displayName: 'Starting build'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: 'Sample.Pipelines/Sample.Pipelines.WebApiTwo.csproj'
+
+  - script: echo Finished build for Web App Two
+    displayName: 'Finished build'
+
+# - job: PublishArtifacts
+#   displayName: Publish Artifacts
+#   dependsOn:
+#     - DotnetCI
+#     - JsCI
+#   steps:
+#   - script: echo Publish artifacts
+#     displayName: Initialize publish artifacts
+#   - task: PublishBuildArtifacts@1
+#     displayName: Publish Build Artifacts 
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#       ArtifactName: 'drop'
+#       publishLocation: 'Container'
